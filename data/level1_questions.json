@@ -18,7 +18,7 @@
     "answer": "B"
   },
   {
-    "question": "What’s a key phishing indicator?",
+    "question": "What\u00e2\u20ac\u2122s a key phishing indicator?",
     "options": {
       "A": "HTTPS website",
       "B": "Urgent language & unexpected request",
@@ -43,5 +43,15 @@
       "C": "$p@c3M@r!n3Z2025"
     },
     "answer": "C"
+  },
+  {
+    "question": "Hel",
+    "options": {
+      "A": "H",
+      "B": "J",
+      "C": "K",
+      "D": "L"
+    },
+    "answer": "A"
   }
 ]

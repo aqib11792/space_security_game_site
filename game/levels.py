@@ -20,21 +20,21 @@ class GameLevels:
         self.canvas.create_image(0, 0, image=self.bg_img, anchor="nw")
 
         self.frame = tk.Frame(
-                self.canvas,
-                bg="#2b2e39",
-                padx=40,
-                pady=40,
-                highlightbackground="#ffffff",
-                highlightthickness=1
-            )
+            self.canvas,
+            bg="#2b2e39",
+            padx=40, pady=40,
+            highlightbackground="#ffffff",
+            highlightthickness=1,
+            highlightcolor="#ffffff"
+        )
+
         self.canvas.create_window(
             self.root.winfo_screenwidth() // 2,
             self.root.winfo_screenheight() // 2,
             window=self.frame,
-            width=800,   # make wider
-            height=500   # make taller
+            width=800,
+            height=500
         )
-
 
         tk.Button(self.root, text="✖", command=self.quit_game, bg="red", fg="white", font=("Helvetica", 12)).place(relx=1.0, rely=0.0, anchor="ne", x=-5, y=5)
 
@@ -131,7 +131,7 @@ class GameLevels:
         tk.Button(btns, text="Replay Game", font=("Helvetica", 12), command=self.reset_game, bg="#00c3ff", fg="#000000", relief="flat").grid(row=0, column=0, padx=10)
         tk.Button(btns, text="Back to Home", font=("Helvetica", 12), command=self.back_to_home, bg="#00c3ff", fg="#000000", relief="flat").grid(row=0, column=1, padx=10)
         tk.Button(btns, text="Quit", font=("Helvetica", 12), command=self.root.destroy, bg="#00c3ff", fg="#000000", relief="flat").grid(row=0, column=2, padx=10)
-
+        
     def reset_game(self):
         save_progress(self.username, {"score": 0, "level": 1})
         self.root.destroy()
