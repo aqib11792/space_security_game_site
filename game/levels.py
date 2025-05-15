@@ -19,8 +19,22 @@ class GameLevels:
         self.bg_img = ImageTk.PhotoImage(self.bg_img)
         self.canvas.create_image(0, 0, image=self.bg_img, anchor="nw")
 
-        self.frame = tk.Frame(self.canvas, bg="#2b2e39", padx=20, pady=20)
-        self.canvas.create_window(self.root.winfo_screenwidth() // 2, self.root.winfo_screenheight() // 2, window=self.frame)
+        self.frame = tk.Frame(
+                self.canvas,
+                bg="#2b2e39",
+                padx=40,
+                pady=40,
+                highlightbackground="#ffffff",
+                highlightthickness=1
+            )
+        self.canvas.create_window(
+            self.root.winfo_screenwidth() // 2,
+            self.root.winfo_screenheight() // 2,
+            window=self.frame,
+            width=800,   # make wider
+            height=500   # make taller
+        )
+
 
         tk.Button(self.root, text="✖", command=self.quit_game, bg="red", fg="white", font=("Helvetica", 12)).place(relx=1.0, rely=0.0, anchor="ne", x=-5, y=5)
 
