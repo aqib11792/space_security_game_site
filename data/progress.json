@@ -2,5 +2,9 @@
   "player1": {
     "score": 15,
     "level": 1
+  },
+  "aqib": {
+    "score": 0,
+    "level": 1
   }
 }
