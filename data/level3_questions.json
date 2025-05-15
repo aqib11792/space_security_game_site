@@ -1,0 +1,52 @@
+[
+  {
+    "question": "Which filename is most likely to be a disguised malicious executable?",
+    "options": {
+      "A": "update_patch_notes.txt",
+      "B": "holiday_photo.jpg.exe",
+      "C": "document.docx",
+      "D": "setup.ini"
+    },
+    "answer": "B"
+  },
+  {
+    "question": "What behavior often indicates the presence of a keylogger?",
+    "options": {
+      "A": "Slower system boot time",
+      "B": "Frequent application crashes",
+      "C": "Unusual outbound traffic when typing",
+      "D": "System updates failing"
+    },
+    "answer": "C"
+  },
+  {
+    "question": "Which command-line tool can help analyze a suspicious running process?",
+    "options": {
+      "A": "ping",
+      "B": "netstat",
+      "C": "tasklist",
+      "D": "ipconfig"
+    },
+    "answer": "C"
+  },
+  {
+    "question": "What is a reliable way to detect malware on a system?",
+    "options": {
+      "A": "Checking for system notifications",
+      "B": "Relying on user reports",
+      "C": "Using an updated antivirus scan",
+      "D": "Manually browsing installed programs"
+    },
+    "answer": "C"
+  },
+  {
+    "question": "Which file action is suspicious and may indicate malware behavior?",
+    "options": {
+      "A": "Renaming a text file",
+      "B": "A process duplicating itself to a system directory",
+      "C": "Copying a PDF to a flash drive",
+      "D": "Moving images to cloud storage"
+    },
+    "answer": "B"
+  }
+]

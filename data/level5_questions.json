@@ -1,0 +1,52 @@
+[
+  {
+    "question": "Which log entry suggests unauthorized privilege escalation?",
+    "options": {
+      "A": "15:20 - USER:admin LOGIN:local",
+      "B": "15:25 - USER:guest ACCESS:/public/files",
+      "C": "15:30 - USER:john SUDO:root",
+      "D": "15:35 - USER:admin LOGOUT"
+    },
+    "answer": "C"
+  },
+  {
+    "question": "What type of log is best for detecting remote access attempts?",
+    "options": {
+      "A": "Authentication logs",
+      "B": "Web server logs",
+      "C": "Application error logs",
+      "D": "Printer usage logs"
+    },
+    "answer": "A"
+  },
+  {
+    "question": "After detecting a confirmed breach, what's your first step?",
+    "options": {
+      "A": "Reboot the server",
+      "B": "Disconnect affected systems from the network",
+      "C": "Update the antivirus definitions",
+      "D": "Notify HR department"
+    },
+    "answer": "B"
+  },
+  {
+    "question": "Which log pattern best indicates lateral movement by an attacker?",
+    "options": {
+      "A": "Multiple failed login attempts from a single IP",
+      "B": "Sequential access to multiple internal systems from same user",
+      "C": "Frequent updates to system settings",
+      "D": "Printer logs being cleared"
+    },
+    "answer": "B"
+  },
+  {
+    "question": "What information is critical in forensic investigation of a breach?",
+    "options": {
+      "A": "Wallpaper settings",
+      "B": "Exact timestamps and access logs",
+      "C": "Browser history only",
+      "D": "User theme preferences"
+    },
+    "answer": "B"
+  }
+]

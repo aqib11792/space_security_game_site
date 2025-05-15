@@ -1,0 +1,52 @@
+[
+  {
+    "question": "What is the decrypted message for Caesar cipher text 'ZHOFRPH WR EHUVHFXULWB' with a shift of 3?",
+    "options": {
+      "A": "WELCOME TO CYBERSECURITY",
+      "B": "PROTECT THE NETWORK",
+      "C": "DATA BREACH DETECTED",
+      "D": "CYBER ATTACK STARTING"
+    },
+    "answer": "A"
+  },
+  {
+    "question": "Which of the following best defines a Caesar cipher?",
+    "options": {
+      "A": "A type of hashing function",
+      "B": "A symmetric encryption algorithm using XOR",
+      "C": "A substitution cipher that shifts letters by a fixed amount",
+      "D": "A keyless encryption method"
+    },
+    "answer": "C"
+  },
+  {
+    "question": "Which scenario indicates potential data exfiltration?",
+    "options": {
+      "A": "Employee uploads documents to company drive",
+      "B": "User downloads approved patch",
+      "C": "Large encrypted files sent to unknown FTP server",
+      "D": "Backups created on internal NAS"
+    },
+    "answer": "C"
+  },
+  {
+    "question": "What is the main weakness of Caesar cipher encryption?",
+    "options": {
+      "A": "It uses complex mathematical functions",
+      "B": "It’s impossible to break without a key",
+      "C": "It’s vulnerable to brute-force due to small key space",
+      "D": "It encrypts only numbers"
+    },
+    "answer": "C"
+  },
+  {
+    "question": "What method hides data within another file such as an image?",
+    "options": {
+      "A": "Symmetric encryption",
+      "B": "Data shredding",
+      "C": "Steganography",
+      "D": "Tokenization"
+    },
+    "answer": "C"
+  }
+]

@@ -1,0 +1,47 @@
+[
+  {
+    "question": "Which of these is a phishing attempt?",
+    "options": {
+      "A": "Click here to download urgent security patch now.",
+      "B": "Please ensure to send system logs in encrypted form.",
+      "C": "Maintenance tonight at 0200 UTC. No action needed."
+    },
+    "answer": "A"
+  },
+  {
+    "question": "Which clue shows a suspicious email?",
+    "options": {
+      "A": "From known person",
+      "B": "Contains a link asking urgent action",
+      "C": "Standard footer"
+    },
+    "answer": "B"
+  },
+  {
+    "question": "What’s a key phishing indicator?",
+    "options": {
+      "A": "HTTPS website",
+      "B": "Urgent language & unexpected request",
+      "C": "Known sender"
+    },
+    "answer": "B"
+  },
+  {
+    "question": "Which of these is a phishing attempt?",
+    "options": {
+      "A": "Click here to download urgent patch.",
+      "B": "Submit encrypted logs.",
+      "C": "Maintenance tonight."
+    },
+    "answer": "A"
+  },
+  {
+    "question": "Which password is most secure?",
+    "options": {
+      "A": "12345678",
+      "B": "Passw0rd!",
+      "C": "$p@c3M@r!n3Z2025"
+    },
+    "answer": "C"
+  }
+]

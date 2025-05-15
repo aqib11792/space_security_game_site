@@ -1,0 +1,32 @@
+[
+  {
+    "question": "What is the best immediate response to multiple brute-force login attempts detected in logs?",
+    "options": {
+      "A": "Disable the affected user account",
+      "B": "Reset the entire system",
+      "C": "Enable 2FA and force a password reset",
+      "D": "Ignore the attempt and monitor later"
+    },
+    "answer": "C"
+  },
+  {
+    "question": "Which of these is considered a strong password?",
+    "options": {
+      "A": "12345678",
+      "B": "navigation1",
+      "C": "$p@c3M@r!n3Z2025",
+      "D": "Sentinel123"
+    },
+    "answer": "C"
+  },
+  {
+    "question": "Which technique helps reduce the success of brute-force attacks?",
+    "options": {
+      "A": "Using shorter passwords",
+      "B": "Allowing unlimited login attempts",
+      "C": "Implementing account lockout policies",
+      "D": "Disabling logs"
+    },
+    "answer": "C"
+  }
+]
