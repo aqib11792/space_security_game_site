@@ -50,15 +50,24 @@ class AdminPanel:
         self.root.title("Admin Console")
         self.root.geometry("1000x700")
         self.root.configure(bg="#1c1f26")
+        tk.Button(self.root, text="Logout", command=self.logout, bg="#ff4d4d", fg="white")\
+            .place(relx=1.0, rely=0.0, anchor="ne", x=-10, y=10)
 
         notebook = ttk.Notebook(self.root)
         notebook.pack(expand=True, fill="both")
 
+        tk.Button(self.root, text="Logout", bg="#ff4d4d", fg="white", font=("Helvetica", 10),
+          command=self.logout).place(relx=1.0, rely=0.0, anchor="ne", x=-10, y=10)
+    
         self.manage_users_tab(notebook)
         self.manage_question_tab(notebook)
         self.manage_progress_tab(notebook)
 
         self.root.mainloop()
+    
+    def logout(self):
+        self.root.destroy()
+        AdminConsole()
 
     def manage_users_tab(self, notebook):
         frame = tk.Frame(notebook, bg="#2b2e39")
@@ -75,6 +84,10 @@ class AdminPanel:
 
         self.pw_label = tk.Label(frame, text="Password", bg="#2b2e39", fg="white")
         self.password_input = tk.Entry(frame)
+        
+        self.role_label = tk.Label(frame, text="Role", bg="#2b2e39", fg="white")
+        self.role_var = tk.StringVar(value="player")
+        self.role_dropdown = ttk.Combobox(frame, textvariable=self.role_var, values=["player", "admin"], state="readonly")
 
         self.action_button = tk.Button(frame)
         tk.Button(frame, text="Clear", command=self.clear_user_fields, bg="#444", fg="white").grid(row=5, column=0, columnspan=3, pady=5)
@@ -97,9 +110,11 @@ class AdminPanel:
             self.user_msg.config(text="User not found. You can add them.", fg="white")
             self.pw_label.grid(row=2, column=0)
             self.password_input.grid(row=2, column=1)
+            self.role_label.grid(row=3, column=0)
+            self.role_dropdown.grid(row=3, column=1)
             self.action_button = tk.Button(self.user_frame, text="Add User", bg="#00c3ff", command=self.add_user)
 
-        self.action_button.grid(row=3, column=0, columnspan=3, pady=10)
+        self.action_button.grid(row=4, column=0, columnspan=3, pady=10)
 
     def clear_user_fields(self):
         self.username_input.delete(0, tk.END)
@@ -108,6 +123,15 @@ class AdminPanel:
         self.pw_label.grid_forget()
         self.password_input.grid_forget()
         self.action_button.grid_forget()
+        self.role_label.grid_forget()
+        self.role_dropdown.grid_forget()
+        self.pw_label.grid_forget()
+        self.password_input.grid_forget()
+        self.role_label.grid_forget()
+        self.role_dropdown.grid_forget()
+        self.action_button.grid_forget()
+        self.role_var.set("player")
+
 
     def delete_user(self):
         user = self.username_input.get()
@@ -142,17 +166,22 @@ class AdminPanel:
             self.user_msg.config(text="User already exists", fg="red")
             return
 
-        users[user] = {"password": pwd}
+        role = self.role_var.get()
+        users[user] = {"password": pwd, "role": role}
+
         with open(USERS_FILE, "w") as f:
             json.dump(users, f, indent=2)
 
-        with open(PROGRESS_FILE, "r") as f:
-            progress = json.load(f)
-        progress[user] = {"score": 0, "level": 1}
-        with open(PROGRESS_FILE, "w") as f:
-            json.dump(progress, f, indent=2)
+        # ✅ Only add to progress if role is 'player'
+        if role == "player":
+            with open(PROGRESS_FILE, "r") as f:
+                progress = json.load(f)
+            progress[user] = {"score": 0, "level": 1}
+            with open(PROGRESS_FILE, "w") as f:
+                json.dump(progress, f, indent=2)
 
         self.user_msg.config(text="User added", fg="green")
+
 
     def manage_progress_tab(self, notebook):
         frame = tk.Frame(notebook, bg="#2b2e39")
