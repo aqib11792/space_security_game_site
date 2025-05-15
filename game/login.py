@@ -16,14 +16,15 @@ def login_screen(root):
     bg_label.image = bg_img
     bg_label.place(x=0, y=0, relwidth=1, relheight=1)
 
-    frame = Frame(root, bg="white", padx=30, pady=30)
+    frame = Frame(root, bg="#2b2e39", padx=30, pady=30)
     frame.place(relx=0.5, rely=0.5, anchor="center")
 
-    Label(frame, text="Username", bg="white").grid(row=0, column=0)
-    Label(frame, text="Password", bg="white").grid(row=1, column=0)
+    Label(frame, text="Username", bg="#2b2e39", fg="#ffffff", font=("Helvetica", 12)).grid(row=0, column=0)
+    Label(frame, text="Password", bg="#2b2e39", fg="#ffffff", font=("Helvetica", 12)).grid(row=1, column=0)
 
-    uname = Entry(frame)
-    pwd = Entry(frame, show="*")
+
+    uname = Entry(frame, bg="#1c1f26", fg="#ffffff", insertbackground="#ffffff")
+    pwd = Entry(frame, show="*", bg="#1c1f26", fg="#ffffff", insertbackground="#ffffff")
     uname.grid(row=0, column=1)
     pwd.grid(row=1, column=1)
 
@@ -37,4 +38,5 @@ def login_screen(root):
         else:
             Label(frame, text="Login Failed", fg="red", bg="white").grid(row=3, columnspan=2)
 
-    Button(frame, text="Login", command=try_login).grid(row=2, columnspan=2, pady=10)
+    Button(frame, text="Login", bg="#00c3ff", fg="#000000", font=("Helvetica", 12),
+       relief="flat", command=try_login).grid(row=2, columnspan=2, pady=10)

@@ -19,10 +19,9 @@ class GameLevels:
         self.bg_img = ImageTk.PhotoImage(self.bg_img)
         self.canvas.create_image(0, 0, image=self.bg_img, anchor="nw")
 
-        self.frame = tk.Frame(self.canvas, bg="white", padx=20, pady=20)
+        self.frame = tk.Frame(self.canvas, bg="#2b2e39", padx=20, pady=20)
         self.canvas.create_window(self.root.winfo_screenwidth() // 2, self.root.winfo_screenheight() // 2, window=self.frame)
 
-        # ✖ Close button
         tk.Button(self.root, text="✖", command=self.quit_game, bg="red", fg="white", font=("Helvetica", 12)).place(relx=1.0, rely=0.0, anchor="ne", x=-5, y=5)
 
         state = load_progress(username)
@@ -32,7 +31,7 @@ class GameLevels:
         self.questions = []
         self.wrong_attempts = 0
 
-        self.score_label = tk.Label(self.root, text=f"Score: {self.score}", font=("Helvetica", 14), bg="white")
+        self.score_label = tk.Label(self.root, text=f"Score: {self.score}", font=("Helvetica", 14, "bold"), bg="#1c1f26", fg="#00c3ff")
         self.score_label.place(relx=1.0, rely=0.0, anchor="ne", x=-40, y=10)
 
         self.run_current_level()
@@ -57,19 +56,20 @@ class GameLevels:
         self.clear_frame()
         question = self.questions[self.q_index]
 
-        tk.Label(self.frame, text=f"Level {self.level} - Q{self.q_index + 1}", font=("Helvetica", 16, "bold"), bg="white").pack(pady=10)
-        tk.Label(self.frame, text=question["question"], font=("Helvetica", 14), bg="white", wraplength=700).pack(pady=10)
+        tk.Label(self.frame, text=f"Level {self.level} - Q{self.q_index + 1}", font=("Helvetica", 16, "bold"), bg="#2b2e39", fg="#ffffff").pack(pady=10)
+        tk.Label(self.frame, text=question["question"], font=("Helvetica", 14), bg="#2b2e39", fg="#ffffff", wraplength=700).pack(pady=10)
 
-        self.choice = tk.StringVar(value="")  # Prevent pre-selection
+        self.choice = tk.StringVar(value="")
 
         for k, v in question["options"].items():
             tk.Radiobutton(self.frame, text=f"{k}) {v}", variable=self.choice, value=k,
-                           font=("Helvetica", 12), bg="white").pack(anchor="w", padx=10)
+                           font=("Helvetica", 12), bg="#2b2e39", fg="#ffffff", selectcolor="#1c1f26",
+                           activebackground="#2b2e39", activeforeground="#00c3ff").pack(anchor="w", padx=10)
 
-        btns = tk.Frame(self.frame, bg="white")
+        btns = tk.Frame(self.frame, bg="#2b2e39")
         btns.pack(pady=20)
-        tk.Button(btns, text="Submit", command=lambda: self.check_answer(question), font=("Helvetica", 12)).grid(row=0, column=0, padx=10)
-        tk.Button(btns, text="Quit", command=self.quit_game, font=("Helvetica", 12)).grid(row=0, column=1, padx=10)
+        tk.Button(btns, text="Submit", command=lambda: self.check_answer(question), font=("Helvetica", 12), bg="#00c3ff", fg="#000000", relief="flat").grid(row=0, column=0, padx=10)
+        tk.Button(btns, text="Quit", command=self.quit_game, font=("Helvetica", 12), bg="#00c3ff", fg="#000000", relief="flat").grid(row=0, column=1, padx=10)
 
     def check_answer(self, question):
         if not self.choice.get():
@@ -96,9 +96,8 @@ class GameLevels:
         self.clear_frame()
         save_progress(self.username, {"score": self.score, "level": self.level})
         self.wrong_attempts = 0
-        tk.Label(self.frame, text="❌ Too many wrong attempts!", font=("Helvetica", 16, "bold"), bg="white", fg="red").pack(pady=10)
-        tk.Button(self.frame, text="Back to Level Select", font=("Helvetica", 14),
-                  command=self.goto_level_select).pack(pady=20)
+        tk.Label(self.frame, text="❌ Too many wrong attempts!", font=("Helvetica", 16, "bold"), bg="#2b2e39", fg="red").pack(pady=10)
+        tk.Button(self.frame, text="Back to Level Select", font=("Helvetica", 14), bg="#00c3ff", fg="#000000", relief="flat", command=self.goto_level_select).pack(pady=20)
 
     def goto_level_select(self):
         self.root.destroy()
@@ -111,16 +110,13 @@ class GameLevels:
     def show_final(self):
         self.clear_frame()
         save_progress(self.username, {"score": self.score, "level": self.level})
-        
-        tk.Label(self.frame, text="🎉 CONGRATULATIONS!", font=("Helvetica", 18, "bold"), bg="white", fg="green").pack(pady=10)
-        tk.Label(self.frame, text=f"You completed all 5 levels!\nFinal Score: {self.score}", font=("Helvetica", 14), bg="white").pack(pady=10)
-
-        btns = tk.Frame(self.frame, bg="white")
+        tk.Label(self.frame, text="🎉 CONGRATULATIONS!", font=("Helvetica", 18, "bold"), bg="#2b2e39", fg="green").pack(pady=10)
+        tk.Label(self.frame, text=f"You completed all 5 levels!\nFinal Score: {self.score}", font=("Helvetica", 14), bg="#2b2e39", fg="#ffffff").pack(pady=10)
+        btns = tk.Frame(self.frame, bg="#2b2e39")
         btns.pack(pady=20)
-
-        tk.Button(btns, text="Replay Game", font=("Helvetica", 12), command=self.reset_game).grid(row=0, column=0, padx=10)
-        tk.Button(btns, text="Back to Home", font=("Helvetica", 12), command=self.back_to_home).grid(row=0, column=1, padx=10)
-        tk.Button(btns, text="Quit", font=("Helvetica", 12), command=self.root.destroy).grid(row=0, column=2, padx=10)
+        tk.Button(btns, text="Replay Game", font=("Helvetica", 12), command=self.reset_game, bg="#00c3ff", fg="#000000", relief="flat").grid(row=0, column=0, padx=10)
+        tk.Button(btns, text="Back to Home", font=("Helvetica", 12), command=self.back_to_home, bg="#00c3ff", fg="#000000", relief="flat").grid(row=0, column=1, padx=10)
+        tk.Button(btns, text="Quit", font=("Helvetica", 12), command=self.root.destroy, bg="#00c3ff", fg="#000000", relief="flat").grid(row=0, column=2, padx=10)
 
     def reset_game(self):
         save_progress(self.username, {"score": 0, "level": 1})
@@ -154,11 +150,11 @@ def show_home(username):
     bg = ImageTk.PhotoImage(bg)
     canvas.create_image(0, 0, image=bg, anchor="nw")
 
-    frame = tk.Frame(canvas, bg="white", padx=30, pady=30)
+    frame = tk.Frame(canvas, bg="#2b2e39", padx=30, pady=30)
     canvas.create_window(root.winfo_screenwidth() // 2, root.winfo_screenheight() // 2, window=frame)
 
-    tk.Label(frame, text=f"Welcome {username}", font=("Helvetica", 18), bg="white").pack(pady=10)
-    tk.Button(frame, text="Start Game", font=("Helvetica", 14),
+    tk.Label(frame, text="Select Level", font=("Helvetica", 18), bg="#2b2e39", fg="#ffffff").pack(pady=10)
+    tk.Button(frame, text="Level 1", bg="#00c3ff", fg="#000000", font=("Helvetica", 12), relief="flat",
               command=lambda: start_game(root, username)).pack(pady=20)
 
     root.mainloop()
@@ -181,7 +177,7 @@ def show_level_select(username):
     bg = ImageTk.PhotoImage(bg)
     canvas.create_image(0, 0, image=bg, anchor="nw")
 
-    frame = tk.Frame(canvas, bg="white", padx=30, pady=30)
+    frame = tk.Frame(canvas, bg="#2b2e39", padx=30, pady=30)
     canvas.create_window(root.winfo_screenwidth() // 2, root.winfo_screenheight() // 2, window=frame)
 
     progress = load_progress(username)
@@ -195,10 +191,12 @@ def show_level_select(username):
         save_progress(username, {"score": 0, "level": 1})
 
     # Top left score label
-    score_label = tk.Label(root, text=f"Score: {final_score}", font=("Helvetica", 14), bg="white")
+    score_label = tk.Label(root, text=f"Score: {final_score}", font=("Helvetica", 14, "bold"),
+                       bg="#1c1f26", fg="#00c3ff")
     score_label.place(relx=0.0, rely=0.0, anchor="nw", x=20, y=10)
 
-    tk.Label(frame, text="Select Level", font=("Helvetica", 18), bg="white").pack(pady=10)
+
+    tk.Label(frame, text="Select Level", font=("Helvetica", 18), bg="#2b2e39", fg="#ffffff").pack(pady=10)
 
     def launch_level(level):
         root.destroy()
@@ -224,7 +222,7 @@ def show_level_select(username):
 
     tk.Button(frame, text="✖ Quit", font=("Helvetica", 12), command=root.destroy).pack(pady=20)
     root.mainloop()
-    
+
 def show_final_score_popup(window, score):
     popup = tk.Toplevel(window)
     popup.title("Final Score")
