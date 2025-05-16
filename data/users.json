@@ -14,5 +14,17 @@
   "moiz": {
     "password": "moiz",
     "role": "admin"
+  },
+  "abdullah": {
+    "password": "abd123",
+    "role": "player"
+  },
+  "abdullah1": {
+    "password": "12345",
+    "role": "player"
+  },
+  "abdullah11": {
+    "password": "12345",
+    "role": "player"
   }
 }
