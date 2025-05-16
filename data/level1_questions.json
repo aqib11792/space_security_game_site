@@ -18,11 +18,12 @@
     "answer": "B"
   },
   {
-    "question": "What\u00e2\u20ac\u2122s a key phishing indicator?",
+    "question": "What is a key phishing indicator?",
     "options": {
       "A": "HTTPS website",
       "B": "Urgent language & unexpected request",
-      "C": "Known sender"
+      "C": "Known sender",
+      "D": ""
     },
     "answer": "B"
   },

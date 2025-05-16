@@ -13,12 +13,14 @@ class GameLevels:
         self.root.title("Game")
         self.canvas = tk.Canvas(self.root)
         self.canvas.pack(fill="both", expand=True)
+        tk.Button(self.root, text="Logout", bg="#ff4d4d", fg="white", font=("Helvetica", 10),
+          command=self.logout).place(relx=0.01, rely=0.0, anchor="nw", x=10, y=10)
 
         self.bg_img = Image.open("assets/images/bg.jpg")
         self.bg_img = self.bg_img.resize((self.root.winfo_screenwidth(), self.root.winfo_screenheight()))
         self.bg_img = ImageTk.PhotoImage(self.bg_img)
         self.canvas.create_image(0, 0, image=self.bg_img, anchor="nw")
-
+        
         self.frame = tk.Frame(
             self.canvas,
             bg="#2b2e39",
@@ -36,8 +38,6 @@ class GameLevels:
             height=500
         )
 
-        tk.Button(self.root, text="✖", command=self.quit_game, bg="red", fg="white", font=("Helvetica", 12)).place(relx=1.0, rely=0.0, anchor="ne", x=-5, y=5)
-
         state = load_progress(username)
         self.score = state["score"]
         self.level = start_from if start_from else state["level"]
@@ -50,6 +50,14 @@ class GameLevels:
 
         self.run_current_level()
         self.root.mainloop()
+
+    def logout(self):
+        save_progress(self.username, {"score": self.score, "level": self.level})
+        self.root.destroy()
+        from game.login import user_login_screen
+        new_root = tk.Tk()
+        new_root.attributes('-fullscreen', True)
+        user_login_screen(new_root)
 
     def run_current_level(self):
         if self.level > 5:
@@ -83,7 +91,7 @@ class GameLevels:
         btns = tk.Frame(self.frame, bg="#2b2e39")
         btns.pack(pady=20)
         tk.Button(btns, text="Submit", command=lambda: self.check_answer(question), font=("Helvetica", 12), bg="#00c3ff", fg="#000000", relief="flat").grid(row=0, column=0, padx=10)
-        tk.Button(btns, text="Quit", command=self.quit_game, font=("Helvetica", 12), bg="#00c3ff", fg="#000000", relief="flat").grid(row=0, column=1, padx=10)
+        tk.Button(btns, text="Quit", command=self.goto_level_select, font=("Helvetica", 12), bg="#00c3ff", fg="#000000", relief="flat").grid(row=0, column=1, padx=10)
 
     def check_answer(self, question):
         if not self.choice.get():
@@ -164,14 +172,29 @@ def show_home(username):
     bg = ImageTk.PhotoImage(bg)
     canvas.create_image(0, 0, image=bg, anchor="nw")
 
-    frame = tk.Frame(canvas, bg="#2b2e39", padx=30, pady=30)
+    frame = tk.Frame(canvas, bg="#2b2e39", padx=60, pady=60)
     canvas.create_window(root.winfo_screenwidth() // 2, root.winfo_screenheight() // 2, window=frame)
 
-    tk.Label(frame, text="Select Level", font=("Helvetica", 18), bg="#2b2e39", fg="#ffffff").pack(pady=10)
-    tk.Button(frame, text="Level 1", bg="#00c3ff", fg="#000000", font=("Helvetica", 12), relief="flat",
-              command=lambda: start_game(root, username)).pack(pady=20)
+    tk.Label(frame, text="🌌 Welcome to Space Cyber Mission!\nYou are the commander of a security mission.\nSolve challenges to secure the galaxy.", 
+             font=("Helvetica", 14), bg="#2b2e39", fg="#ffffff", wraplength=500, justify="center").pack(pady=(0, 20))
+
+    tk.Button(frame, text="Start Game", bg="#00c3ff", fg="#000000", font=("Helvetica", 12), relief="flat",
+              command=lambda: start_game(root, username)).pack(pady=10)
+
+    # Lazy import to avoid circular import
+    # Lazy import to avoid circular import
+    def go_logout():
+        root.destroy()
+        from game.login import user_login_screen
+        new_root = tk.Tk()
+        new_root.attributes('-fullscreen', True)
+        user_login_screen(new_root)  # ✅ Only call this once with fullscreen root
+
+    tk.Button(root, text="Logout", bg="#ff4d4d", fg="white", font=("Helvetica", 10),
+            command=go_logout).place(relx=0.01, rely=0.0, anchor="nw", x=10, y=10)
 
     root.mainloop()
+
 
 
 def start_game(window, username):
@@ -235,7 +258,19 @@ def show_level_select(username):
                   command=lambda: reset_progress(root, username)).pack(pady=5)
 
     tk.Button(frame, text="✖ Quit", font=("Helvetica", 12), command=root.destroy).pack(pady=20)
+    def logout_to_login():
+        root.destroy()
+        from game.login import user_login_screen
+        new_root = tk.Tk()
+        new_root.attributes('-fullscreen', True)
+        user_login_screen(new_root)
+
+    tk.Button(root, text="Logout", bg="#ff4d4d", fg="white", font=("Helvetica", 10),
+            command=logout_to_login).place(relx=0.01, rely=0.0, anchor="nw", x=10, y=10)
+
+
     root.mainloop()
+
 
 def show_final_score_popup(window, score):
     popup = tk.Toplevel(window)

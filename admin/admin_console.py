@@ -16,6 +16,10 @@ class AdminConsole:
         self.root.title("Admin Login")
         self.root.geometry("400x300")
         self.root.configure(bg="#2b2e39")
+        tk.Button(self.root, text="← Back", bg="#ff4d4d", fg="white", font=("Helvetica", 10),
+                command=self.go_back_to_main)\
+            .place(relx=0.01, rely=0.01, anchor="nw")
+
 
         tk.Label(self.root, text="Admin Login", font=("Helvetica", 16), bg="#2b2e39", fg="white").pack(pady=20)
 
@@ -43,6 +47,11 @@ class AdminConsole:
         else:
             self.error_label.config(text="Invalid admin credentials")
 
+    def go_back_to_main(self):
+        self.root.destroy()
+        import game.login as login
+        login.launch_main_login()
+
 
 class AdminPanel:
     def __init__(self):
@@ -51,13 +60,14 @@ class AdminPanel:
         self.root.geometry("1000x700")
         self.root.configure(bg="#1c1f26")
         tk.Button(self.root, text="Logout", command=self.logout, bg="#ff4d4d", fg="white")\
-            .place(relx=1.0, rely=0.0, anchor="ne", x=-10, y=10)
+            .place(relx=0.98, rely=0.0, anchor="ne", x=-10, y=10)
 
         notebook = ttk.Notebook(self.root)
         notebook.pack(expand=True, fill="both")
+        self.notebook = notebook
 
         tk.Button(self.root, text="Logout", bg="#ff4d4d", fg="white", font=("Helvetica", 10),
-          command=self.logout).place(relx=1.0, rely=0.0, anchor="ne", x=-10, y=10)
+          command=self.logout).place(relx=0.98, rely=0.0, anchor="ne", x=-10, y=10)
     
         self.manage_users_tab(notebook)
         self.manage_question_tab(notebook)
@@ -70,29 +80,35 @@ class AdminPanel:
         AdminConsole()
 
     def manage_users_tab(self, notebook):
-        frame = tk.Frame(notebook, bg="#2b2e39")
-        notebook.add(frame, text="User Management")
+        frame = tk.Frame(self.notebook, bg="#2b2e39")
+        self.notebook.add(frame, text="User Management")
 
-        tk.Label(frame, text="Username", bg="#2b2e39", fg="white").grid(row=0, column=0)
-        self.username_input = tk.Entry(frame)
+        center = tk.Frame(frame, bg="#2b2e39")
+        center.place(relx=0.5, rely=0.5, anchor="center")
+
+        tk.Label(center, text="Username", bg="#2b2e39", fg="white").grid(row=0, column=0)
+        self.username_input = tk.Entry(center)
         self.username_input.grid(row=0, column=1)
 
-        self.user_msg = tk.Label(frame, text="", bg="#2b2e39", fg="white")
+        self.user_msg = tk.Label(center, text="", bg="#2b2e39", fg="white")
         self.user_msg.grid(row=1, columnspan=3)
 
-        tk.Button(frame, text="Search", command=self.search_user, bg="#00c3ff").grid(row=0, column=2, padx=10)
+        tk.Button(center, text="Search", command=self.search_user, bg="#00c3ff")\
+            .grid(row=0, column=2, padx=10)
 
-        self.pw_label = tk.Label(frame, text="Password", bg="#2b2e39", fg="white")
-        self.password_input = tk.Entry(frame)
-        
-        self.role_label = tk.Label(frame, text="Role", bg="#2b2e39", fg="white")
+        self.pw_label = tk.Label(center, text="Password", bg="#2b2e39", fg="white")
+        self.password_input = tk.Entry(center)
+
+        self.role_label = tk.Label(center, text="Role", bg="#2b2e39", fg="white")
         self.role_var = tk.StringVar(value="player")
-        self.role_dropdown = ttk.Combobox(frame, textvariable=self.role_var, values=["player", "admin"], state="readonly")
+        self.role_dropdown = ttk.Combobox(center, textvariable=self.role_var, values=["player", "admin"], state="readonly")
 
-        self.action_button = tk.Button(frame)
-        tk.Button(frame, text="Clear", command=self.clear_user_fields, bg="#444", fg="white").grid(row=5, column=0, columnspan=3, pady=5)
+        self.action_button = tk.Button(center)
+        tk.Button(center, text="Clear", command=self.clear_user_fields,
+                bg="#444", fg="white").grid(row=6, column=0, columnspan=3, pady=5)
 
-        self.user_frame = frame
+        self.user_frame = center
+
 
     def search_user(self):
         user = self.username_input.get()
@@ -184,27 +200,33 @@ class AdminPanel:
 
 
     def manage_progress_tab(self, notebook):
-        frame = tk.Frame(notebook, bg="#2b2e39")
-        notebook.add(frame, text="Progress Management")
+        frame = tk.Frame(self.notebook, bg="#2b2e39")
+        self.notebook.add(frame, text="Progress Management")
 
-        tk.Label(frame, text="Username", bg="#2b2e39", fg="white").grid(row=0, column=0)
-        self.user_entry = tk.Entry(frame)
+        center = tk.Frame(frame, bg="#2b2e39")
+        center.place(relx=0.5, rely=0.5, anchor="center")
+
+        tk.Label(center, text="Username", bg="#2b2e39", fg="white").grid(row=0, column=0)
+        self.user_entry = tk.Entry(center)
         self.user_entry.grid(row=0, column=1)
 
-        tk.Button(frame, text="Load Progress", command=self.load_progress, bg="#00c3ff").grid(row=1, column=0, columnspan=2, pady=10)
+        tk.Button(center, text="Load Progress", command=self.load_progress, bg="#00c3ff")\
+            .grid(row=1, column=0, columnspan=2, pady=10)
 
-        tk.Label(frame, text="Score", bg="#2b2e39", fg="white").grid(row=2, column=0)
-        self.score_entry = tk.Entry(frame)
+        tk.Label(center, text="Score", bg="#2b2e39", fg="white").grid(row=2, column=0)
+        self.score_entry = tk.Entry(center)
         self.score_entry.grid(row=2, column=1)
 
-        tk.Label(frame, text="Level", bg="#2b2e39", fg="white").grid(row=3, column=0)
-        self.level_entry = tk.Entry(frame)
+        tk.Label(center, text="Level", bg="#2b2e39", fg="white").grid(row=3, column=0)
+        self.level_entry = tk.Entry(center)
         self.level_entry.grid(row=3, column=1)
 
-        self.progress_msg = tk.Label(frame, text="", bg="#2b2e39", fg="white")
+        self.progress_msg = tk.Label(center, text="", bg="#2b2e39", fg="white")
         self.progress_msg.grid(row=4, column=0, columnspan=2)
 
-        tk.Button(frame, text="Save Changes", command=self.save_progress, bg="green", fg="white").grid(row=5, column=0, columnspan=2, pady=10)
+        tk.Button(center, text="Save Changes", command=self.save_progress,
+                bg="green", fg="white").grid(row=5, column=0, columnspan=2, pady=10)
+
 
     def load_progress(self):
         user = self.user_entry.get()
@@ -394,6 +416,8 @@ class AdminPanel:
     def render_clear_qtab(self):
         for w in self.qtab.winfo_children(): w.destroy()
 
+def admin_login_screen():
+    AdminConsole()
 
 if __name__ == "__main__":
     AdminConsole()
